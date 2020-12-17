@@ -1,3 +1,5 @@
+import os #gets os variables from heroku
+
 from flask import Flask
 from flask_restful import Api
 from flask_jwt import JWT
@@ -8,7 +10,7 @@ from resources.item import Item, ItemList
 from resources.store import Store, StoreList
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'  #this is saying that database will live at the root of the folder
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL','sqlite:///data.db') #gets environment var form heroku or uses sqlite from this computer
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
 app.secret_key = 'jose'
